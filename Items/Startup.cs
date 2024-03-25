@@ -1,4 +1,5 @@
-using AutoMapper;
+//using AutoMapper;
+//using AutoMapper.Internal;
 using Items.Common.Models;
 using Items.Data;
 using Items.Service.Address.Implementations;
@@ -90,18 +91,43 @@ namespace Items
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Items Kitchen API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Items API", Version = "v1" });
             });
 
-            var mappingConfig = new MapperConfiguration(mc =>
-            {
-                mc.AddProfile(new Service.Address.Config.AutoMapperProfile());
-                mc.AddProfile(new Service.User.Config.AutoMapperProfile());
-                mc.AddProfile(new Service.Item.Config.AutoMapperProfile());
-            });
 
-            IMapper mapper = mappingConfig.CreateMapper();
-            services.AddSingleton(mapper);
+
+
+
+
+
+
+
+            //var mappingConfig = new MapperConfiguration(mc =>
+            //{
+            //    //mc.Internal().MethodMappingEnabled = false;
+            //    mc.AddProfile(new Service.Address.Config.AutoMapperProfile());
+            //    mc.AddProfile(new Service.User.Config.AutoMapperProfile());
+            //    mc.AddProfile(new Service.Item.Config.AutoMapperProfile());
+            //});
+
+            ////services.AddAutoMapper(cfg => cfg.Internal().MethodMappingEnabled = false, typeof(MappingProfile).Assembly);
+
+
+
+
+            //IMapper mapper = mappingConfig.CreateMapper();
+            //services.AddSingleton(mapper);
+
+
+
+
+
+
+
+
+
+
+
 
             services.AddMvc(x =>
             {
@@ -126,7 +152,7 @@ namespace Items
             // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Items Kitchen APIs");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Items APIs");
                 c.RoutePrefix = string.Empty;
             });
 

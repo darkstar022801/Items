@@ -5,8 +5,10 @@
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <UserSecretsId>5925df1f-9d54-4b48-8920-aba871b52dda</UserSecretsId>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'LOCAL' " />
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'DEV' " />
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'QA' " />
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="9.0.0" />
     <PackageReference Include="Facebook" Version="7.0.6" />
     <PackageReference Include="Google.Apis" Version="1.45.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="3.1.3" />

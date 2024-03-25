@@ -7,13 +7,13 @@ namespace Items.Service.Item.Interfaces
 {
     public interface IProperty
     {
-        Task<Guid> CreateAsync(PropertyDTO propertyDTO);
+        //Task<Guid> CreateAsync(PropertyDTO propertyDTO);
 
-        IAsyncEnumerable<PropertyDTO> GetAllAsync();
+        //IAsyncEnumerable<PropertyDTO> GetAllAsync();
 
-        IAsyncEnumerable<PropertyDTO> GetByItemAsync(Guid itemId);
+        //IAsyncEnumerable<PropertyDTO> GetByItemAsync(Guid itemId);
 
-        Task<PropertyDTO> GetByIdAsync(Guid id);
+        //Task<PropertyDTO> GetByIdAsync(Guid id);
 
     }
 }

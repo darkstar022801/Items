@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Items.Controllers
 {
-    [AllowAnonymous]
+    //[AllowAnonymous]
     //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
     [ApiController]
@@ -25,56 +25,62 @@ namespace Items.Controllers
             _addressService = addressService;
         }
 
-        [HttpGet, Route("GetAll")]
-        public ActionResult<IAsyncEnumerable<AddressDTO>> GetAll()
+        [HttpGet, Route("test")]
+        public ActionResult<string> Test()
         {
-            IAsyncEnumerable<AddressDTO> list = _addressService.GetAllAsync();
-
-            return Ok(list);
+            return Ok("this is a test");
         }
 
-        [HttpGet, Route("GetByPostalCode/{postalCode}/{addressType}")]
-        public ActionResult<IAsyncEnumerable<AddressDTO>> GetByPostalCode(int postalCode, int addressType)
-        {
-            IAsyncEnumerable<AddressDTO> list = _addressService.GetByPostalCodeAsync(postalCode, addressType);
+        //[HttpGet, Route("GetAll")]
+        //public ActionResult<IAsyncEnumerable<AddressDTO>> GetAll()
+        //{
+        //    IAsyncEnumerable<AddressDTO> list = _addressService.GetAllAsync();
 
-            return Ok(list);
-        }
+        //    return Ok(list);
+        //}
 
-        [HttpGet, Route("GetByCityState/{city}/{state}/{addressType}")]
-        public ActionResult<IAsyncEnumerable<AddressDTO>> GetByCityState(string city, string state, int addressType)
-        {
-            IAsyncEnumerable<AddressDTO> list = _addressService.GetByCityStateAsync(city, state, addressType);
+        //[HttpGet, Route("GetByPostalCode/{postalCode}/{addressType}")]
+        //public ActionResult<IAsyncEnumerable<AddressDTO>> GetByPostalCode(int postalCode, int addressType)
+        //{
+        //    IAsyncEnumerable<AddressDTO> list = _addressService.GetByPostalCodeAsync(postalCode, addressType);
 
-            return Ok(list);
-        }
+        //    return Ok(list);
+        //}
+
+        //[HttpGet, Route("GetByCityState/{city}/{state}/{addressType}")]
+        //public ActionResult<IAsyncEnumerable<AddressDTO>> GetByCityState(string city, string state, int addressType)
+        //{
+        //    IAsyncEnumerable<AddressDTO> list = _addressService.GetByCityStateAsync(city, state, addressType);
+
+        //    return Ok(list);
+        //}
 
 
-        [HttpGet, Route("GetById/{id}")]
-        public async Task<ActionResult<AddressDTO>> GetById(Guid id)
-        {
-            AddressDTO address = await _addressService.GetByIdAsync(id);
+        //[HttpGet, Route("GetById/{id}")]
+        //public async Task<ActionResult<AddressDTO>> GetById(Guid id)
+        //{
+        //    AddressDTO address = await _addressService.GetByIdAsync(id);
 
-            if (address.Id == Guid.Empty)
-                return NotFound();
+        //    if (address.Id == Guid.Empty)
+        //        return NotFound();
 
-            return Ok(address);
-        }
+        //    return Ok(address);
+        //}
 
-        [HttpPost, Route("Create")]
-        public async Task<ActionResult> Create([FromBody] AddressDTO addressDTO)
-        {
-            Guid id = await _addressService.CreateAsync(addressDTO);
+        //[HttpPost, Route("Create")]
+        //public async Task<ActionResult> Create([FromBody] AddressDTO addressDTO)
+        //{
+        //    Guid id = await _addressService.CreateAsync(addressDTO);
 
-            if (id == Guid.Empty)
-                return StatusCode(303);
+        //    if (id == Guid.Empty)
+        //        return StatusCode(303);
 
-            return Created(
-                new Uri(
-                    string.Concat(Request.Path.ToString().Remove(Request.Path.ToString().Length - 6, 6), $"GetById/{id}"),
-                    UriKind.Relative),
-                id);
-        }
+        //    return Created(
+        //        new Uri(
+        //            string.Concat(Request.Path.ToString().Remove(Request.Path.ToString().Length - 6, 6), $"GetById/{id}"),
+        //            UriKind.Relative),
+        //        id);
+        //}
 
     }
 }

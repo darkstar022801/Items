@@ -7,10 +7,10 @@ namespace Items.Service.Item.Interfaces
 {
     public interface ISubCategoryItem
     {
-        Task<bool> AddItemToSubCategoryAsync(Guid subCategoryId, Guid itemId);
+        //Task<bool> AddItemToSubCategoryAsync(Guid subCategoryId, Guid itemId);
 
-        IAsyncEnumerable<SubCategoryItemDTO> GetSubCategoryByItemAsync(Guid itemId);
+        //IAsyncEnumerable<SubCategoryItemDTO> GetSubCategoryByItemAsync(Guid itemId);
 
-        IAsyncEnumerable<SubCategoryItemDTO> GetItemBySubCategoryAsync(Guid subCategoryId);
+        //IAsyncEnumerable<SubCategoryItemDTO> GetItemBySubCategoryAsync(Guid subCategoryId);
     }
 }

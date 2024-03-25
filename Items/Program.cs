@@ -45,8 +45,8 @@ namespace Items
                 {
                     // this line is used for debugging
                     // when building useKestrel
-                    webBuilder.UseIIS();
-                    //webBuilder.UseKestrel();
+                    //webBuilder.UseIIS();
+                    webBuilder.UseKestrel();
                     webBuilder.UseSerilog();
                     webBuilder.UseStartup<Startup>();
                 });

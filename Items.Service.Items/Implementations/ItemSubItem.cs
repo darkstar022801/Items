@@ -45,55 +45,55 @@ namespace Items.Service.Item.Implementations
                 }
         */
 
-        public async IAsyncEnumerable<ItemSubItemDTO> GetSubItemByItemAsync(Guid itemId)
-        {
-            List<Data.Entities.ItemSubItem> itemSubItemList = await _context.ItemSubItem.Where(a => a.ItemId == itemId).ToListAsync();
+        //public async IAsyncEnumerable<ItemSubItemDTO> GetSubItemByItemAsync(Guid itemId)
+        //{
+        //    List<Data.Entities.ItemSubItem> itemSubItemList = await _context.ItemSubItem.Where(a => a.ItemId == itemId).ToListAsync();
 
-            foreach (var itemSubItem in itemSubItemList)
-            {
-                    ItemSubItemDTO itemSubItemDTO = CloneItemSubItemEntity(itemSubItem);
+        //    foreach (var itemSubItem in itemSubItemList)
+        //    {
+        //            ItemSubItemDTO itemSubItemDTO = CloneItemSubItemEntity(itemSubItem);
 
-                    yield return itemSubItemDTO;
-            }
-        }
+        //            yield return itemSubItemDTO;
+        //    }
+        //}
 
-        public async Task<bool> AddSubItemToItemAsync(Guid itemId, Guid subItemId)
-        {
-            await _context.ItemSubItem.AddAsync(new Data.Entities.ItemSubItem
-            {
-                ItemId = itemId,
-                SubItemId = subItemId,
-            });
+        //public async Task<bool> AddSubItemToItemAsync(Guid itemId, Guid subItemId)
+        //{
+        //    await _context.ItemSubItem.AddAsync(new Data.Entities.ItemSubItem
+        //    {
+        //        ItemId = itemId,
+        //        SubItemId = subItemId,
+        //    });
 
-            try
-            {
-                var response = await _context.SaveChangesAsync();
-                if (response > 0)
-                    return true;
-                else
-                    return false;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError("There was an exception when attempting to create a ItemSubItem.", ex);
-                return false;
-            }
-        }
+        //    try
+        //    {
+        //        var response = await _context.SaveChangesAsync();
+        //        if (response > 0)
+        //            return true;
+        //        else
+        //            return false;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _logger.LogError("There was an exception when attempting to create a ItemSubItem.", ex);
+        //        return false;
+        //    }
+        //}
 
-        public static implicit operator ItemSubItem(Data.Entities.ItemSubItem v)
-        {
-            throw new NotImplementedException();
-        }
+        //public static implicit operator ItemSubItem(Data.Entities.ItemSubItem v)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public ItemSubItemDTO CloneItemSubItemEntity(Data.Entities.ItemSubItem itemSubItem)
-        {
-            ItemSubItemDTO itemSubItemDTO = new ItemSubItemDTO
-            {
-                ItemId = itemSubItem.ItemId,
-                SubItemId = itemSubItem.SubItemId,
-            };
-            return itemSubItemDTO;
-        }
+        //public ItemSubItemDTO CloneItemSubItemEntity(Data.Entities.ItemSubItem itemSubItem)
+        //{
+        //    ItemSubItemDTO itemSubItemDTO = new ItemSubItemDTO
+        //    {
+        //        ItemId = itemSubItem.ItemId,
+        //        SubItemId = itemSubItem.SubItemId,
+        //    };
+        //    return itemSubItemDTO;
+        //}
     }
 
 }

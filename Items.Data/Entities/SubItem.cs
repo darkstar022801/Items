@@ -12,7 +12,7 @@ namespace Items.Data.Entities
         public Guid Id { get; set; }
 
         [Required]
-        public IList<SubItemProperty> SubItemProperty { get; set; }
+        public List<SubItemProperty> SubItemProperties { get; set; }
 
         [Required]
         public DateTime CreatedDate { get; set; }
@@ -28,6 +28,6 @@ namespace Items.Data.Entities
 
         public Guid? DeletedBy { get; set; }
 
-        public IList<ItemSubItem> ItemSubItems { get; set; }
+        public List<ItemSubItem> ItemSubItems { get; set; }
     }
 }

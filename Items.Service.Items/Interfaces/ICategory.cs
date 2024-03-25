@@ -7,10 +7,10 @@ namespace Items.Service.Item.Interfaces
 {
     public interface ICategory
     {
-        Task<Guid> CreateAsync(CategoryDTO categoryDTO);
+        //Task<Guid> CreateAsync(CategoryDTO categoryDTO);
 
-        IAsyncEnumerable<CategoryDTO> GetAllAsync();
+        //IAsyncEnumerable<CategoryDTO> GetAllAsync();
 
-        Task<CategoryDTO> GetByIdAsync(Guid id);
+        //Task<CategoryDTO> GetByIdAsync(Guid id);
     }
 }

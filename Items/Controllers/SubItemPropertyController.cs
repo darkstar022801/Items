@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Items.Controllers
 {
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
     [ApiController]
     public class SubItemPropertyController : ControllerBase
@@ -23,47 +23,53 @@ namespace Items.Controllers
             _subItemPropertyService = subItemPropertyService;
         }
 
-        [HttpGet, Route("GetAll")]
-        public ActionResult<IAsyncEnumerable<SubItemPropertyDTO>> GetAll()
+        [HttpGet, Route("test")]
+        public ActionResult<string> Test()
         {
-            IAsyncEnumerable<SubItemPropertyDTO> list = _subItemPropertyService.GetAllAsync();
-
-            return Ok(list);
+            return Ok("this is a test");
         }
 
-        [HttpGet, Route("GetBySubItem/{subItemId}")]
-        public ActionResult<IAsyncEnumerable<SubItemPropertyDTO>> GetBySubItem(Guid subItemId)
-        {
-            IAsyncEnumerable<SubItemPropertyDTO> list = _subItemPropertyService.GetBySubItemAsync(subItemId);
+        //[HttpGet, Route("GetAll")]
+        //public ActionResult<IAsyncEnumerable<SubItemPropertyDTO>> GetAll()
+        //{
+        //    IAsyncEnumerable<SubItemPropertyDTO> list = _subItemPropertyService.GetAllAsync();
 
-            return Ok(list);
-        }
+        //    return Ok(list);
+        //}
 
-        [HttpGet, Route("GetById/{id}")]
-        public async Task<ActionResult<SubItemPropertyDTO>> GetById(Guid id)
-        {
-            SubItemPropertyDTO subItemProperty = await _subItemPropertyService.GetByIdAsync(id);
+        //[HttpGet, Route("GetBySubItem/{subItemId}")]
+        //public ActionResult<IAsyncEnumerable<SubItemPropertyDTO>> GetBySubItem(Guid subItemId)
+        //{
+        //    IAsyncEnumerable<SubItemPropertyDTO> list = _subItemPropertyService.GetBySubItemAsync(subItemId);
 
-            if (subItemProperty.Id == Guid.Empty)
-                return NotFound();
+        //    return Ok(list);
+        //}
 
-            return Ok(subItemProperty);
-        }
+        //[HttpGet, Route("GetById/{id}")]
+        //public async Task<ActionResult<SubItemPropertyDTO>> GetById(Guid id)
+        //{
+        //    SubItemPropertyDTO subItemProperty = await _subItemPropertyService.GetByIdAsync(id);
 
-        [HttpPost, Route("Create")]
-        public async Task<ActionResult> Create([FromBody] SubItemPropertyDTO subItemPropertyDTO)
-        {
-            Guid id = await _subItemPropertyService.CreateAsync(subItemPropertyDTO);
+        //    if (subItemProperty.Id == Guid.Empty)
+        //        return NotFound();
 
-            if (id == Guid.Empty)
-                return StatusCode(303);
+        //    return Ok(subItemProperty);
+        //}
 
-            return Created(
-                new Uri(
-                    string.Concat(Request.Path.ToString().Remove(Request.Path.ToString().Length - 6, 6), $"GetById/{id}"),
-                    UriKind.Relative),
-                id);
-        }
+        //[HttpPost, Route("Create")]
+        //public async Task<ActionResult> Create([FromBody] SubItemPropertyDTO subItemPropertyDTO)
+        //{
+        //    Guid id = await _subItemPropertyService.CreateAsync(subItemPropertyDTO);
+
+        //    if (id == Guid.Empty)
+        //        return StatusCode(303);
+
+        //    return Created(
+        //        new Uri(
+        //            string.Concat(Request.Path.ToString().Remove(Request.Path.ToString().Length - 6, 6), $"GetById/{id}"),
+        //            UriKind.Relative),
+        //        id);
+        //}
     }
 }
 

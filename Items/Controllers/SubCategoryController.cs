@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Items.Controllers
 {
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
     [ApiController]
     public class SubCategoryController : ControllerBase
@@ -24,47 +24,53 @@ namespace Items.Controllers
             _subSubCategoryService = subSubCategoryService;
         }
 
-        [HttpGet, Route("GetAll")]
-        public ActionResult<IAsyncEnumerable<SubCategoryDTO>> GetAll()
+        [HttpGet, Route("test")]
+        public ActionResult<string> Test()
         {
-            IAsyncEnumerable<SubCategoryDTO> list = _subSubCategoryService.GetAllAsync();
-
-            return Ok(list);
+            return Ok("this is a test");
         }
 
-        [HttpGet, Route("GetByCategory/{categoryId}")]
-        public ActionResult<IAsyncEnumerable<SubCategoryDTO>> GetByCategory(Guid categoryId)
-        {
-            IAsyncEnumerable<SubCategoryDTO> list = _subSubCategoryService.GetByCategoryAsync(categoryId);
+        //[HttpGet, Route("GetAll")]
+        //public ActionResult<IAsyncEnumerable<SubCategoryDTO>> GetAll()
+        //{
+        //    IAsyncEnumerable<SubCategoryDTO> list = _subSubCategoryService.GetAllAsync();
 
-            return Ok(list);
-        }
+        //    return Ok(list);
+        //}
 
-        [HttpGet, Route("GetById/{id}")]
-        public async Task<ActionResult<SubCategoryDTO>> GetById(Guid id)
-        {
-            SubCategoryDTO subSubCategory = await _subSubCategoryService.GetByIdAsync(id);
+        //[HttpGet, Route("GetByCategory/{categoryId}")]
+        //public ActionResult<IAsyncEnumerable<SubCategoryDTO>> GetByCategory(Guid categoryId)
+        //{
+        //    IAsyncEnumerable<SubCategoryDTO> list = _subSubCategoryService.GetByCategoryAsync(categoryId);
 
-            if (subSubCategory.Id == Guid.Empty)
-                return NotFound();
+        //    return Ok(list);
+        //}
 
-            return Ok(subSubCategory);
-        }
+        //[HttpGet, Route("GetById/{id}")]
+        //public async Task<ActionResult<SubCategoryDTO>> GetById(Guid id)
+        //{
+        //    SubCategoryDTO subSubCategory = await _subSubCategoryService.GetByIdAsync(id);
 
-        [HttpPost, Route("Create")]
-        public async Task<ActionResult> Create([FromBody] SubCategoryDTO subSubCategoryDTO)
-        {
-            Guid id = await _subSubCategoryService.CreateAsync(subSubCategoryDTO);
+        //    if (subSubCategory.Id == Guid.Empty)
+        //        return NotFound();
 
-            if (id == Guid.Empty)
-                return StatusCode(303);
+        //    return Ok(subSubCategory);
+        //}
 
-            return Created(
-                new Uri(
-                    string.Concat(Request.Path.ToString().Remove(Request.Path.ToString().Length - 6, 6), $"GetById/{id}"),
-                    UriKind.Relative),
-                id);
-        }
+        //[HttpPost, Route("Create")]
+        //public async Task<ActionResult> Create([FromBody] SubCategoryDTO subSubCategoryDTO)
+        //{
+        //    Guid id = await _subSubCategoryService.CreateAsync(subSubCategoryDTO);
+
+        //    if (id == Guid.Empty)
+        //        return StatusCode(303);
+
+        //    return Created(
+        //        new Uri(
+        //            string.Concat(Request.Path.ToString().Remove(Request.Path.ToString().Length - 6, 6), $"GetById/{id}"),
+        //            UriKind.Relative),
+        //        id);
+        //}
 
     }
 }

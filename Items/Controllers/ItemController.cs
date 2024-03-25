@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Items.Controllers
 {
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
     [ApiController]
     public class ItemController : ControllerBase
@@ -24,43 +24,49 @@ namespace Items.Controllers
             _itemService = itemService;
         }
 
-        [HttpGet, Route("GetAll")]
-        public ActionResult<IAsyncEnumerable<ItemDTO>> GetAll()
+        [HttpGet, Route("test")]
+        public ActionResult<string> Test()
         {
-            IAsyncEnumerable<ItemDTO> list = _itemService.GetAllAsync();
-
-            return Ok(list);
+            return Ok("this is a test");
         }
 
-        [HttpGet, Route("GetAllWithSubType")]
-        public ActionResult<IAsyncEnumerable<ItemDTO>> GetAllWithSubType()
-        {
-            IAsyncEnumerable<ItemDTO> list = _itemService.GetAllWithSubTypeAsync();
+        //[HttpGet, Route("GetAll")]
+        //public ActionResult<IAsyncEnumerable<ItemDTO>> GetAll()
+        //{
+        //    IAsyncEnumerable<ItemDTO> list = _itemService.GetAllAsync();
 
-            return Ok(list);
-        }
+        //    return Ok(list);
+        //}
 
-        [HttpGet, Route("GetById/{id}")]
-        public ActionResult<IAsyncEnumerable<ItemDTO>> GetById(Guid id)
-        {
-            IAsyncEnumerable<ItemDTO> item = _itemService.GetByIdAsync(id);
+        //[HttpGet, Route("GetAllWithSubType")]
+        //public ActionResult<IAsyncEnumerable<ItemDTO>> GetAllWithSubType()
+        //{
+        //    IAsyncEnumerable<ItemDTO> list = _itemService.GetAllWithSubTypeAsync();
 
-            return Ok(item);
-        }
+        //    return Ok(list);
+        //}
 
-        [HttpPost, Route("Create")]
-        public async Task<ActionResult> Create([FromBody] ItemDTO itemDTO)
-        {
-            Guid id = await _itemService.CreateAsync(itemDTO);
+        //[HttpGet, Route("GetById/{id}")]
+        //public ActionResult<IAsyncEnumerable<ItemDTO>> GetById(Guid id)
+        //{
+        //    IAsyncEnumerable<ItemDTO> item = _itemService.GetByIdAsync(id);
 
-            if (id == Guid.Empty)
-                return StatusCode(303);
+        //    return Ok(item);
+        //}
 
-            return Created(
-                new Uri(
-                    string.Concat(Request.Path.ToString().Remove(Request.Path.ToString().Length - 6, 6), $"GetById/{id}"),
-                    UriKind.Relative),
-                id);
-        }
+        //[HttpPost, Route("Create")]
+        //public async Task<ActionResult> Create([FromBody] ItemDTO itemDTO)
+        //{
+        //    Guid id = await _itemService.CreateAsync(itemDTO);
+
+        //    if (id == Guid.Empty)
+        //        return StatusCode(303);
+
+        //    return Created(
+        //        new Uri(
+        //            string.Concat(Request.Path.ToString().Remove(Request.Path.ToString().Length - 6, 6), $"GetById/{id}"),
+        //            UriKind.Relative),
+        //        id);
+        //}
     }
 }

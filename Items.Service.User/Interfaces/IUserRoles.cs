@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 
 namespace Items.Service.User.Interfaces
 {
-    public interface  IUserRoles
+    public interface IUserRoles
     {
-        IAsyncEnumerable<Role> GetRolesByUserId(Guid id);
+        //IAsyncEnumerable<Role> GetRolesByUserId(Guid id);
 
-        Task<UserRole> AssignRole(Guid userId, Guid roleId, Guid currentUser);
+        //Task<UserRole> AssignRole(Guid userId, Guid roleId, Guid currentUser);
 
-        void RemoveRole(Guid userId, Guid roleId, Guid currentUser);
+        //void RemoveRole(Guid userId, Guid roleId, Guid currentUser);
     }
 }

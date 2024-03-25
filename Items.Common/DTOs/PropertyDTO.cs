@@ -1,4 +1,5 @@
 ﻿using System;
+using Items.Data.Entities;
 
 namespace Items.Common.DTOs
 {
@@ -9,11 +10,20 @@ namespace Items.Common.DTOs
         public string Name { get; set; }
         public string Value { get; set; }
         public string Description { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public Guid CreatedBy { get; set; }
-        public DateTime? UpdatedDate { get; set; }
-        public Guid? UpdatedBy { get; set; }
-        public DateTime? DeletedDate { get; set; }
-        public Guid? DeletedBy { get; set; }
+
+        public static PropertyDTO From(Property property)
+        {
+            if (property == null)
+                return new PropertyDTO();
+
+            return new PropertyDTO
+            {
+                Id = property.Id,
+                ItemId = property.ItemId,
+                Name = property.Name,
+                Value = property.Value,
+                Description = property.Description
+            };
+        }
     }
 }

@@ -15,24 +15,24 @@
   "profiles": {
     "LOCAL": {
       "commandName": "Project",
+      "applicationUrl": "http://localhost:7000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Local"
-      },
-      "applicationUrl": "http://localhost:7000"
+      }
     },
     "DEV": {
       "commandName": "Project",
+      "applicationUrl": "http://localhost:7000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      },
-      "applicationUrl": "http://localhost:7000"
+      }
     },
     "QA": {
       "commandName": "Project",
+      "applicationUrl": "http://localhost:7000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "QA"
-      },
-      "applicationUrl": "http://localhost:7000"
+      }
     },
     "Docker": {
       "commandName": "Docker",

@@ -24,6 +24,12 @@ namespace Items.Controllers
             _itemSubItemService = itemSubItemService;
         }
 
+        [HttpGet, Route("test")]
+        public ActionResult<string> Test()
+        {
+            return Ok("this is a test");
+        }
+
         /*        [HttpGet, Route("GetAll")]
                 public ActionResult<IAsyncEnumerable<ItemSubItemDTO>> GetAll()
                 {
@@ -44,24 +50,24 @@ namespace Items.Controllers
                 }
         */
 
-        [HttpGet, Route("GetSubItemByItem/{itemId}")]
-        public ActionResult<IAsyncEnumerable<ItemSubItemDTO>> GetSubItemByItem(Guid itemId)
-        {
-            IAsyncEnumerable<ItemSubItemDTO> list = _itemSubItemService.GetSubItemByItemAsync(itemId);
+        //[HttpGet, Route("GetSubItemByItem/{itemId}")]
+        //public ActionResult<IAsyncEnumerable<ItemSubItemDTO>> GetSubItemByItem(Guid itemId)
+        //{
+        //    IAsyncEnumerable<ItemSubItemDTO> list = _itemSubItemService.GetSubItemByItemAsync(itemId);
 
-            return Ok(list);
-        }
+        //    return Ok(list);
+        //}
 
 
-        [HttpPost, Route("AddSubItemToItem/{itemId}/{subItemId}")]
-        public async Task<ActionResult> AddSubItemToItem(Guid itemId, Guid subItemId)
-        {
-            bool response = await _itemSubItemService.AddSubItemToItemAsync(itemId, subItemId);
+        //[HttpPost, Route("AddSubItemToItem/{itemId}/{subItemId}")]
+        //public async Task<ActionResult> AddSubItemToItem(Guid itemId, Guid subItemId)
+        //{
+        //    bool response = await _itemSubItemService.AddSubItemToItemAsync(itemId, subItemId);
 
-            if (response == false)
-                return StatusCode(303);
+        //    if (response == false)
+        //        return StatusCode(303);
 
-            return Ok("Add SubItem To Item - Success");
-        }
+        //    return Ok("Add SubItem To Item - Success");
+        //}
     }
 }

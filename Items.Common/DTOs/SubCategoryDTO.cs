@@ -1,4 +1,5 @@
 ﻿using System;
+using Items.Data.Entities;
 
 namespace Items.Common.DTOs
 {
@@ -8,11 +9,19 @@ namespace Items.Common.DTOs
         public Guid CategoryId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public Guid CreatedBy { get; set; }
-        public DateTime? UpdatedDate { get; set; }
-        public Guid? UpdatedBy { get; set; }
-        public DateTime? DeletedDate { get; set; }
-        public Guid? DeletedBy { get; set; }
+
+        public static SubCategoryDTO From(SubCategory subCategory)
+        {
+            if (subCategory == null)
+                return new SubCategoryDTO();
+
+            return new SubCategoryDTO
+            {
+                Id = subCategory.Id,
+                CategoryId = subCategory.CategoryId,
+                Name = subCategory.Name,
+                Description = subCategory.Description
+            };
+        }
     }
 }

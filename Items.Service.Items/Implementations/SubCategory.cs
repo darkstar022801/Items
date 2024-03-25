@@ -21,90 +21,90 @@ namespace Items.Service.Item.Implementations
             _context = context;
         }
 
-        public async IAsyncEnumerable<SubCategoryDTO> GetAllAsync()
-        {
-            await foreach (var subCategory in _context.SubCategory.AsAsyncEnumerable())
-            {
-                if (subCategory.DeletedDate is null)
-                {
-                    SubCategoryDTO subCategoryDTO = CloneSubCategoryEntity(subCategory);
+        //    public async IAsyncEnumerable<SubCategoryDTO> GetAllAsync()
+        //    {
+        //        await foreach (var subCategory in _context.SubCategory.AsAsyncEnumerable())
+        //        {
+        //            if (subCategory.DeletedDate is null)
+        //            {
+        //                SubCategoryDTO subCategoryDTO = CloneSubCategoryEntity(subCategory);
 
-                    yield return subCategoryDTO;
-                }
-            }
-        }
+        //                yield return subCategoryDTO;
+        //            }
+        //        }
+        //    }
 
-        public async Task<SubCategoryDTO> GetByIdAsync(Guid id)
-        {
-            Data.Entities.SubCategory subCategory = await _context.FindAsync<Data.Entities.SubCategory>(id);
+        //    public async Task<SubCategoryDTO> GetByIdAsync(Guid id)
+        //    {
+        //        Data.Entities.SubCategory subCategory = await _context.FindAsync<Data.Entities.SubCategory>(id);
 
-            if (subCategory is null || subCategory.DeletedDate != null)
-                return new SubCategoryDTO();
+        //        if (subCategory is null || subCategory.DeletedDate != null)
+        //            return new SubCategoryDTO();
 
-            return CloneSubCategoryEntity(subCategory);
-        }
+        //        return CloneSubCategoryEntity(subCategory);
+        //    }
 
-        public async IAsyncEnumerable<SubCategoryDTO> GetByCategoryAsync(Guid categoryId)
-        {
-            List<Data.Entities.SubCategory> subCategoryList = await _context.SubCategory.Where(x => x.CategoryId == categoryId).ToListAsync();
+        //    public async IAsyncEnumerable<SubCategoryDTO> GetByCategoryAsync(Guid categoryId)
+        //    {
+        //        List<Data.Entities.SubCategory> subCategoryList = await _context.SubCategory.Where(x => x.CategoryId == categoryId).ToListAsync();
 
-            foreach (var subCategory in subCategoryList)
-            {
-                if (subCategory.DeletedDate is null)
-                {
+        //        foreach (var subCategory in subCategoryList)
+        //        {
+        //            if (subCategory.DeletedDate is null)
+        //            {
 
-                    SubCategoryDTO subCategoryDTO = CloneSubCategoryEntity(subCategory);
+        //                SubCategoryDTO subCategoryDTO = CloneSubCategoryEntity(subCategory);
 
-                    yield return subCategoryDTO;
-                }
-            };
+        //                yield return subCategoryDTO;
+        //            }
+        //        };
 
-        }
+        //    }
 
-        public async Task<Guid> CreateAsync(SubCategoryDTO subCategoryDTO)
-        {
-            Guid id = Guid.NewGuid();
-            await _context.SubCategory.AddAsync(new Data.Entities.SubCategory
-            {
-                Id = id,
-                Name = subCategoryDTO.Name,
-                CategoryId = subCategoryDTO.CategoryId,
-                Description = subCategoryDTO.Description,
-                CreatedDate = DateTime.Now,
-                CreatedBy = subCategoryDTO.CreatedBy,
-            });
+        //    public async Task<Guid> CreateAsync(SubCategoryDTO subCategoryDTO)
+        //    {
+        //        Guid id = Guid.NewGuid();
+        //        await _context.SubCategory.AddAsync(new Data.Entities.SubCategory
+        //        {
+        //            Id = id,
+        //            Name = subCategoryDTO.Name,
+        //            CategoryId = subCategoryDTO.CategoryId,
+        //            Description = subCategoryDTO.Description,
+        //            CreatedDate = DateTime.Now,
+        //            CreatedBy = subCategoryDTO.CreatedBy,
+        //        });
 
-            try
-            {
-                var response = await _context.SaveChangesAsync();
-                if (response > 0)
-                    return id;
-                else
-                    return Guid.Empty;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError("There was an exception when attempting to create a SubCategory.", ex);
-                return Guid.Empty;
-            }
-        }
+        //        try
+        //        {
+        //            var response = await _context.SaveChangesAsync();
+        //            if (response > 0)
+        //                return id;
+        //            else
+        //                return Guid.Empty;
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            _logger.LogError("There was an exception when attempting to create a SubCategory.", ex);
+        //            return Guid.Empty;
+        //        }
+        //    }
 
-        public SubCategoryDTO CloneSubCategoryEntity(Data.Entities.SubCategory subCategory)
-        {
-            SubCategoryDTO subCategoryDTO = new SubCategoryDTO
-            {
-                Id = subCategory.Id,
-                CategoryId = subCategory.CategoryId,
-                Name = subCategory.Name,
-                Description = subCategory.Description,
-                CreatedDate = subCategory.CreatedDate,
-                CreatedBy = subCategory.CreatedBy,
-                UpdatedDate = subCategory.UpdatedDate,
-                UpdatedBy = subCategory.UpdatedBy,
-                DeletedDate = subCategory.DeletedDate,
-                DeletedBy = subCategory.DeletedBy,
-    };
-            return subCategoryDTO;
-        }
+        //    public SubCategoryDTO CloneSubCategoryEntity(Data.Entities.SubCategory subCategory)
+        //    {
+        //        SubCategoryDTO subCategoryDTO = new SubCategoryDTO
+        //        {
+        //            Id = subCategory.Id,
+        //            CategoryId = subCategory.CategoryId,
+        //            Name = subCategory.Name,
+        //            Description = subCategory.Description,
+        //            CreatedDate = subCategory.CreatedDate,
+        //            CreatedBy = subCategory.CreatedBy,
+        //            UpdatedDate = subCategory.UpdatedDate,
+        //            UpdatedBy = subCategory.UpdatedBy,
+        //            DeletedDate = subCategory.DeletedDate,
+        //            DeletedBy = subCategory.DeletedBy,
+        //};
+        //        return subCategoryDTO;
+        //    }
     }
 }

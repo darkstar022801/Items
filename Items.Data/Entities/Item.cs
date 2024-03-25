@@ -28,7 +28,7 @@ namespace Items.Data.Entities
 
         public Guid? DeletedBy { get; set; }
 
-        public IList<SubCategoryItem> SubCategoryItems { get; set; }
-        public IList<ItemSubItem> ItemSubItems { get; set; }
+        public List<SubCategoryItem> SubCategoryItems { get; set; }
+        public List<ItemSubItem> ItemSubItems { get; set; }
     }
 }

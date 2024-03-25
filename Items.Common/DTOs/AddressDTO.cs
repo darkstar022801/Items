@@ -1,4 +1,5 @@
 ﻿using System;
+using Items.Data.Entities;
 
 namespace Items.Common.DTOs
 {
@@ -14,9 +15,25 @@ namespace Items.Common.DTOs
         public string Premise { get; set; } //Apartment, Suite, Box number, etc.
         public string LandMark { get; set; } //Nearby Landmark
         public int AddressType { get; set; } //Store or other Address
-        public DateTime CreatedDate { get; set; }
-        public DateTime? UpdatedDate { get; set; }
-        public DateTime? DeletedDate { get; set; }
 
+        public static AddressDTO From(Address address)
+        {
+            if (address == null)
+                return new AddressDTO();
+
+            return new AddressDTO
+            {
+                Id = address.Id,
+                Country = address.Country,
+                AdministrativeArea = address.AdministrativeArea,
+                SubAdministrativeArea = address.SubAdministrativeArea,
+                Locality = address.Locality,
+                PostalCode = address.PostalCode,
+                StreetAddress = address.StreetAddress,
+                Premise = address.Premise,
+                LandMark = address.LandMark,
+                AddressType = address.AddressType
+            };
+        }
     }
 }

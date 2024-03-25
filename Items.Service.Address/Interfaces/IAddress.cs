@@ -7,15 +7,15 @@ namespace Items.Service.Address.Interfaces
 {
     public interface IAddress
     {
-        Task<Guid> CreateAsync(AddressDTO addressDTO);
+        //Task<Guid> CreateAsync(AddressDTO addressDTO);
 
-        IAsyncEnumerable<AddressDTO> GetAllAsync();
+        //IAsyncEnumerable<AddressDTO> GetAllAsync();
 
-        Task<AddressDTO> GetByIdAsync(Guid id);
+        //Task<AddressDTO> GetByIdAsync(Guid id);
 
-        IAsyncEnumerable<AddressDTO> GetByPostalCodeAsync(int postalCode, int addressType);
+        //IAsyncEnumerable<AddressDTO> GetByPostalCodeAsync(int postalCode, int addressType);
 
-        IAsyncEnumerable<AddressDTO> GetByCityStateAsync(string city, string state, int addressType);
+        //IAsyncEnumerable<AddressDTO> GetByCityStateAsync(string city, string state, int addressType);
 
         //Task<int> UpdateAsync(AddressDTO addressDTO);
 

@@ -14,9 +14,9 @@ namespace Items.Service.Item.Implementations
         private readonly ILogger<SubItem> _logger;
         private readonly DataContext _subItemContext;
         private readonly ISubItemProperty _subItemPropertyService;
-        
-        public SubItem(ILogger<SubItem> logger, 
-                        DataContext subItemContext, 
+
+        public SubItem(ILogger<SubItem> logger,
+                        DataContext subItemContext,
                         ISubItemProperty subItemPropertyService)
         {
             _logger = logger;
@@ -24,114 +24,114 @@ namespace Items.Service.Item.Implementations
             _subItemPropertyService = subItemPropertyService;
         }
 
-        public async IAsyncEnumerable<SubItemDTO> GetAllAsync()
-        {
+        //        public async IAsyncEnumerable<SubItemDTO> GetAllAsync()
+        //        {
 
-            /*var subItemWithProp = await _context.SubItem.Join(
-                                                _context.SubItemProperty,
-                                                subItem => subItem.Id,
-                                                subItemProperty => subItemProperty.SubItem.Id,
-                                                (subItem, subItemProperty) => new
-                                                {
-                                                    SubItemId = subItemProperty.SubItemId,
-                                                    SubItemPropId = subItemProperty.Id,
-                                                    SubItemDeletedDate = subItem.DeletedDate,
-                                                    SubItemPropDeletedDate = subItemProperty.DeletedDate
-                                                }
-                                                ).Where(x => x.SubItemDeletedDate == null && 
-                                                             x.SubItemPropDeletedDate == null).ToListAsync();
-*/
-            List<Data.Entities.SubItem> subItemList = await _subItemContext.SubItem.ToListAsync();
+        //            /*var subItemWithProp = await _context.SubItem.Join(
+        //                                                _context.SubItemProperty,
+        //                                                subItem => subItem.Id,
+        //                                                subItemProperty => subItemProperty.SubItem.Id,
+        //                                                (subItem, subItemProperty) => new
+        //                                                {
+        //                                                    SubItemId = subItemProperty.SubItemId,
+        //                                                    SubItemPropId = subItemProperty.Id,
+        //                                                    SubItemDeletedDate = subItem.DeletedDate,
+        //                                                    SubItemPropDeletedDate = subItemProperty.DeletedDate
+        //                                                }
+        //                                                ).Where(x => x.SubItemDeletedDate == null && 
+        //                                                             x.SubItemPropDeletedDate == null).ToListAsync();
+        //*/
+        //            List<Data.Entities.SubItem> subItemList = await _subItemContext.SubItem.ToListAsync();
 
 
-            foreach (var subItem in subItemList)
-            {
-                if (subItem.DeletedDate is null)
-                {
-                    IAsyncEnumerable<SubItemPropertyDTO> subItemPropertyDTOList = _subItemPropertyService.GetBySubItemAsync(subItem.Id);
+        //            foreach (var subItem in subItemList)
+        //            {
+        //                if (subItem.DeletedDate is null)
+        //                {
+        //                    IAsyncEnumerable<SubItemPropertyDTO> subItemPropertyDTOList = _subItemPropertyService.GetBySubItemAsync(subItem.Id);
 
-                    IAsyncEnumerable<SubItemDTO> subItemDTO = CloneSubItemEntity(subItem, subItemPropertyDTOList);
+        //                    IAsyncEnumerable<SubItemDTO> subItemDTO = CloneSubItemEntity(subItem, subItemPropertyDTOList);
 
-                    await foreach (var item in subItemDTO)
-                    {
-                        yield return item;
-                    }
-                    
-                }
-            }
-        }
+        //                    await foreach (var item in subItemDTO)
+        //                    {
+        //                        yield return item;
+        //                    }
 
-        
-        public async IAsyncEnumerable<SubItemDTO> GetByIdAsync(Guid id)
-        {
-            Data.Entities.SubItem subItem = await _subItemContext.FindAsync<Data.Entities.SubItem>(id);
+        //                }
+        //            }
+        //        }
 
-            if (subItem is null || subItem.DeletedDate != null)
-                yield return new SubItemDTO();
 
-            IAsyncEnumerable<SubItemPropertyDTO> subItemPropertyDTOList = _subItemPropertyService.GetBySubItemAsync(subItem.Id);
+        //        public async IAsyncEnumerable<SubItemDTO> GetByIdAsync(Guid id)
+        //        {
+        //            Data.Entities.SubItem subItem = await _subItemContext.FindAsync<Data.Entities.SubItem>(id);
 
-            await foreach(var item in CloneSubItemEntity(subItem, subItemPropertyDTOList))
-            {
-                yield return item;
-            }
-            
-        }
+        //            if (subItem is null || subItem.DeletedDate != null)
+        //                yield return new SubItemDTO();
 
-        public async Task<Guid> CreateAsync(SubItemDTO subItemDTO)
-        {
-            Guid id = Guid.NewGuid();
-            await _subItemContext.SubItem.AddAsync(new Data.Entities.SubItem
-            {
-                Id = id,
-                CreatedDate = DateTime.Now,
-                CreatedBy = subItemDTO.CreatedBy,
-            });
+        //            IAsyncEnumerable<SubItemPropertyDTO> subItemPropertyDTOList = _subItemPropertyService.GetBySubItemAsync(subItem.Id);
 
-            try
-            {
-                var response = await _subItemContext.SaveChangesAsync();
-                if (response > 0)
-                    return id;
-                else
-                    return Guid.Empty;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError("There was an exception when attempting to create a SubItem.", ex);
-                return Guid.Empty;
-            }
-        }
-        
-        public async IAsyncEnumerable<SubItemDTO> CloneSubItemEntity(Data.Entities.SubItem subItem, IAsyncEnumerable<SubItemPropertyDTO> subItemPropertyDTOList)
-        {
+        //            await foreach(var item in CloneSubItemEntity(subItem, subItemPropertyDTOList))
+        //            {
+        //                yield return item;
+        //            }
 
-            List<SubItemPropertyDTO> subItemPropertyList = new List<SubItemPropertyDTO>();
+        //        }
 
-            await foreach (var subItemProperty in subItemPropertyDTOList)
-            {
-                subItemPropertyList.Add(subItemProperty);
-            };
+        //        public async Task<Guid> CreateAsync(SubItemDTO subItemDTO)
+        //        {
+        //            Guid id = Guid.NewGuid();
+        //            await _subItemContext.SubItem.AddAsync(new Data.Entities.SubItem
+        //            {
+        //                Id = id,
+        //                CreatedDate = DateTime.Now,
+        //                CreatedBy = subItemDTO.CreatedBy,
+        //            });
 
-            SubItemDTO subItemDTO = new SubItemDTO
-            {
-                Id = subItem.Id,
-                SubItemPropertyList = subItemPropertyList,
-                CreatedDate = subItem.CreatedDate,
-                CreatedBy = subItem.CreatedBy,
-                UpdatedDate = subItem.UpdatedDate,
-                UpdatedBy = subItem.UpdatedBy,
-                DeletedDate = subItem.DeletedDate,
-                DeletedBy = subItem.DeletedBy,
-            };
+        //            try
+        //            {
+        //                var response = await _subItemContext.SaveChangesAsync();
+        //                if (response > 0)
+        //                    return id;
+        //                else
+        //                    return Guid.Empty;
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                _logger.LogError("There was an exception when attempting to create a SubItem.", ex);
+        //                return Guid.Empty;
+        //            }
+        //        }
 
-            yield return subItemDTO;
-        }
+        //        public async IAsyncEnumerable<SubItemDTO> CloneSubItemEntity(Data.Entities.SubItem subItem, IAsyncEnumerable<SubItemPropertyDTO> subItemPropertyDTOList)
+        //        {
 
-        public static implicit operator SubItem(Data.Entities.SubItem v)
-        {
-            throw new NotImplementedException();
-        }
+        //            List<SubItemPropertyDTO> subItemPropertyList = new List<SubItemPropertyDTO>();
+
+        //            await foreach (var subItemProperty in subItemPropertyDTOList)
+        //            {
+        //                subItemPropertyList.Add(subItemProperty);
+        //            };
+
+        //            SubItemDTO subItemDTO = new SubItemDTO
+        //            {
+        //                Id = subItem.Id,
+        //                SubItemPropertyList = subItemPropertyList,
+        //                CreatedDate = subItem.CreatedDate,
+        //                CreatedBy = subItem.CreatedBy,
+        //                UpdatedDate = subItem.UpdatedDate,
+        //                UpdatedBy = subItem.UpdatedBy,
+        //                DeletedDate = subItem.DeletedDate,
+        //                DeletedBy = subItem.DeletedBy,
+        //            };
+
+        //            yield return subItemDTO;
+        //        }
+
+        //        public static implicit operator SubItem(Data.Entities.SubItem v)
+        //        {
+        //            throw new NotImplementedException();
+        //        }
     }
 
 }

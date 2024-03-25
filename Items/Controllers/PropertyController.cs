@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Items.Controllers
 {
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
     [ApiController]
     public class PropertyController : ControllerBase
@@ -23,47 +23,53 @@ namespace Items.Controllers
             _propertyService = propertyService;
         }
 
-        [HttpGet, Route("GetAll")]
-        public ActionResult<IAsyncEnumerable<PropertyDTO>> GetAll()
+        [HttpGet, Route("test")]
+        public ActionResult<string> Test()
         {
-            IAsyncEnumerable<PropertyDTO> list = _propertyService.GetAllAsync();
-
-            return Ok(list);
+            return Ok("this is a test");
         }
 
-        [HttpGet, Route("GetByItem/{itemId}")]
-        public ActionResult<IAsyncEnumerable<PropertyDTO>> GetByItem(Guid itemId)
-        {
-            IAsyncEnumerable<PropertyDTO> list = _propertyService.GetByItemAsync(itemId);
+        //[HttpGet, Route("GetAll")]
+        //public ActionResult<IAsyncEnumerable<PropertyDTO>> GetAll()
+        //{
+        //    IAsyncEnumerable<PropertyDTO> list = _propertyService.GetAllAsync();
 
-            return Ok(list);
-        }
+        //    return Ok(list);
+        //}
 
-        [HttpGet, Route("GetById/{id}")]
-        public async Task<ActionResult<PropertyDTO>> GetById(Guid id)
-        {
-            PropertyDTO property = await _propertyService.GetByIdAsync(id);
+        //[HttpGet, Route("GetByItem/{itemId}")]
+        //public ActionResult<IAsyncEnumerable<PropertyDTO>> GetByItem(Guid itemId)
+        //{
+        //    IAsyncEnumerable<PropertyDTO> list = _propertyService.GetByItemAsync(itemId);
 
-            if (property.Id == Guid.Empty)
-                return NotFound();
+        //    return Ok(list);
+        //}
 
-            return Ok(property);
-        }
+        //[HttpGet, Route("GetById/{id}")]
+        //public async Task<ActionResult<PropertyDTO>> GetById(Guid id)
+        //{
+        //    PropertyDTO property = await _propertyService.GetByIdAsync(id);
 
-        [HttpPost, Route("Create")]
-        public async Task<ActionResult> Create([FromBody] PropertyDTO propertyDTO)
-        {
-            Guid id = await _propertyService.CreateAsync(propertyDTO);
+        //    if (property.Id == Guid.Empty)
+        //        return NotFound();
 
-            if (id == Guid.Empty)
-                return StatusCode(303);
+        //    return Ok(property);
+        //}
 
-            return Created(
-                new Uri(
-                    string.Concat(Request.Path.ToString().Remove(Request.Path.ToString().Length - 6, 6), $"GetById/{id}"),
-                    UriKind.Relative),
-                id);
-        }
+        //[HttpPost, Route("Create")]
+        //public async Task<ActionResult> Create([FromBody] PropertyDTO propertyDTO)
+        //{
+        //    Guid id = await _propertyService.CreateAsync(propertyDTO);
+
+        //    if (id == Guid.Empty)
+        //        return StatusCode(303);
+
+        //    return Created(
+        //        new Uri(
+        //            string.Concat(Request.Path.ToString().Remove(Request.Path.ToString().Length - 6, 6), $"GetById/{id}"),
+        //            UriKind.Relative),
+        //        id);
+        //}
 
 
 

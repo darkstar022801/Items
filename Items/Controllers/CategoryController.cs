@@ -24,39 +24,45 @@ namespace Items.Controllers
             _categoryService = categoryService;
         }
 
-        [HttpGet, Route("GetAll")]
-        public ActionResult<IAsyncEnumerable<CategoryDTO>> GetAll()
+        [HttpGet, Route("test")]
+        public ActionResult<string> Test()
         {
-            IAsyncEnumerable<CategoryDTO> list = _categoryService.GetAllAsync();
-
-            return Ok(list);
+            return Ok("this is a test");
         }
 
-        [HttpGet, Route("GetById/{id}")]
-        public async Task<ActionResult<CategoryDTO>> GetById(Guid id)
-        {
-            CategoryDTO category = await _categoryService.GetByIdAsync(id);
+        //[HttpGet, Route("GetAll")]
+        //public ActionResult<IAsyncEnumerable<CategoryDTO>> GetAll()
+        //{
+        //    IAsyncEnumerable<CategoryDTO> list = _categoryService.GetAllAsync();
 
-            if (category.Id == Guid.Empty)
-                return NotFound();
+        //    return Ok(list);
+        //}
 
-            return Ok(category);
-        }
+        //[HttpGet, Route("GetById/{id}")]
+        //public async Task<ActionResult<CategoryDTO>> GetById(Guid id)
+        //{
+        //    CategoryDTO category = await _categoryService.GetByIdAsync(id);
 
-        [HttpPost, Route("Create")]
-        public async Task<ActionResult> Create([FromBody] CategoryDTO categoryDTO)
-        {
-            Guid id = await _categoryService.CreateAsync(categoryDTO);
+        //    if (category.Id == Guid.Empty)
+        //        return NotFound();
 
-            if (id == Guid.Empty)
-                return StatusCode(303);
+        //    return Ok(category);
+        //}
 
-            return Created(
-                new Uri(
-                    string.Concat(Request.Path.ToString().Remove(Request.Path.ToString().Length - 6, 6), $"GetById/{id}"),
-                    UriKind.Relative),
-                id);
-        }
+        //[HttpPost, Route("Create")]
+        //public async Task<ActionResult> Create([FromBody] CategoryDTO categoryDTO)
+        //{
+        //    Guid id = await _categoryService.CreateAsync(categoryDTO);
+
+        //    if (id == Guid.Empty)
+        //        return StatusCode(303);
+
+        //    return Created(
+        //        new Uri(
+        //            string.Concat(Request.Path.ToString().Remove(Request.Path.ToString().Length - 6, 6), $"GetById/{id}"),
+        //            UriKind.Relative),
+        //        id);
+        //}
 
     }
 }

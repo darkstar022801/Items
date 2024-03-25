@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Items.Common.DTOs;
+﻿using Items.Common.DTOs;
 using Items.Common.Models;
 using Items.Data.Entities;
 using Items.Service.User.Interfaces;
@@ -16,57 +15,61 @@ using System.Threading.Tasks;
 
 namespace Items.Controllers
 {
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ApiController]
     [Route("api/[controller]")]
     public class UserRolesController : ControllerBase
     {
         private readonly ILogger<UserRolesController> _logger;
-        private readonly IMapper _mapper;
         private readonly IUserRoles _userRolesService;
         private readonly AppSettings _appSettings;
 
-        public UserRolesController(ILogger<UserRolesController> logger, IMapper mapper, IUserRoles userRolesService, IOptions<AppSettings> appSettings)
+        public UserRolesController(ILogger<UserRolesController> logger, IUserRoles userRolesService, IOptions<AppSettings> appSettings)
         {
             _logger = logger;
-            _mapper = mapper;
             _userRolesService = userRolesService;
             _appSettings = appSettings.Value;
         }
 
-        [HttpGet("GetRolesByUserId/{userId}")]
-        public async Task<IActionResult> GetRolesByUserId(Guid userId)
+        [HttpGet, Route("test")]
+        public ActionResult<string> Test()
         {
-            List<Role> roles = new List<Role>();
-
-            IAsyncEnumerator<Role> role = _userRolesService.GetRolesByUserId(userId).GetAsyncEnumerator();
-            while (await role.MoveNextAsync()) roles.Add(role.Current);
-
-            return Ok(_mapper.Map<List<RoleDTO>>(roles));
+            return Ok("this is a test");
         }
 
-        [HttpPost("AssignRole/{userId}/{roleId}")]
-        public async Task<IActionResult> AssignRole(Guid userId, Guid roleId) 
-        {
-            Guid currentUser = Guid.Empty;
-            if (User.HasClaim(x => x.Type == ClaimTypes.Name))
-                currentUser = Guid.Parse(User.Claims.Where(a => a.Type == ClaimTypes.Name).FirstOrDefault().Value);
+        //[HttpGet("GetRolesByUserId/{userId}")]
+        //public async Task<IActionResult> GetRolesByUserId(Guid userId)
+        //{
+        //    List<Role> roles = new List<Role>();
 
-            UserRole userRole = await _userRolesService.AssignRole(userId, roleId, currentUser);
+        //    IAsyncEnumerator<Role> role = _userRolesService.GetRolesByUserId(userId).GetAsyncEnumerator();
+        //    while (await role.MoveNextAsync()) roles.Add(role.Current);
 
-            return Ok();
-        }
+        //    return Ok(_mapper.Map<List<RoleDTO>>(roles));
+        //}
 
-        [HttpPost("RemoveRole/{userId}/{roleId}")]
-        public IActionResult RemoveRole(Guid userId, Guid roleId)
-        {
-            Guid currentUser = Guid.Empty;
-            if (User.HasClaim(x => x.Type == ClaimTypes.Name))
-                currentUser = Guid.Parse(User.Claims.Where(a => a.Type == ClaimTypes.Name).FirstOrDefault().Value);
+        //[HttpPost("AssignRole/{userId}/{roleId}")]
+        //public async Task<IActionResult> AssignRole(Guid userId, Guid roleId) 
+        //{
+        //    Guid currentUser = Guid.Empty;
+        //    if (User.HasClaim(x => x.Type == ClaimTypes.Name))
+        //        currentUser = Guid.Parse(User.Claims.Where(a => a.Type == ClaimTypes.Name).FirstOrDefault().Value);
 
-            _userRolesService.RemoveRole(userId, roleId, currentUser);
+        //    UserRole userRole = await _userRolesService.AssignRole(userId, roleId, currentUser);
 
-            return Ok();
-        }
+        //    return Ok();
+        //}
+
+        //[HttpPost("RemoveRole/{userId}/{roleId}")]
+        //public IActionResult RemoveRole(Guid userId, Guid roleId)
+        //{
+        //    Guid currentUser = Guid.Empty;
+        //    if (User.HasClaim(x => x.Type == ClaimTypes.Name))
+        //        currentUser = Guid.Parse(User.Claims.Where(a => a.Type == ClaimTypes.Name).FirstOrDefault().Value);
+
+        //    _userRolesService.RemoveRole(userId, roleId, currentUser);
+
+        //    return Ok();
+        //}
     }
 }

@@ -52,7 +52,7 @@ namespace Items.Data.Entities
         public string PhotoUrl { get; set; }
 
 
-        public IList<UserRole> UserRoles { get; set; }
+        public List<UserRole> UserRoles { get; set; }
 
     }
 }

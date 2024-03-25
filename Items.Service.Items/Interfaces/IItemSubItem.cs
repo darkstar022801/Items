@@ -7,8 +7,8 @@ namespace Items.Service.Item.Interfaces
 {
     public interface IItemSubItem
     {
-        Task<bool> AddSubItemToItemAsync(Guid itemId, Guid subItemId);
+        //Task<bool> AddSubItemToItemAsync(Guid itemId, Guid subItemId);
 
-        IAsyncEnumerable<ItemSubItemDTO> GetSubItemByItemAsync(Guid itemId);
+        //IAsyncEnumerable<ItemSubItemDTO> GetSubItemByItemAsync(Guid itemId);
     }
 }

@@ -7,13 +7,13 @@ namespace Items.Service.Item.Interfaces
 {
     public interface ISubItemProperty
     {
-        Task<Guid> CreateAsync(SubItemPropertyDTO subItemPropertyDTO);
+        //Task<Guid> CreateAsync(SubItemPropertyDTO subItemPropertyDTO);
 
-        IAsyncEnumerable<SubItemPropertyDTO> GetAllAsync();
+        //IAsyncEnumerable<SubItemPropertyDTO> GetAllAsync();
 
-        IAsyncEnumerable<SubItemPropertyDTO> GetBySubItemAsync(Guid subItemId);
+        //IAsyncEnumerable<SubItemPropertyDTO> GetBySubItemAsync(Guid subItemId);
 
-        Task<SubItemPropertyDTO> GetByIdAsync(Guid id);
+        //Task<SubItemPropertyDTO> GetByIdAsync(Guid id);
 
     }
 }

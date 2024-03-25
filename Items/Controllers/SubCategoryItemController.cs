@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Items.Controllers
 {
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
     [ApiController]
     public class SubCategoryItemController : ControllerBase
@@ -24,31 +24,37 @@ namespace Items.Controllers
             _subCategoryItemService = subCategoryItemService;
         }
 
-        [HttpGet, Route("GetSubCategoryByItem/{itemId}")]
-        public ActionResult<IAsyncEnumerable<SubCategoryItemDTO>> GetSubCategoryByItem(Guid itemId)
+        [HttpGet, Route("test")]
+        public ActionResult<string> Test()
         {
-            IAsyncEnumerable<SubCategoryItemDTO> list = _subCategoryItemService.GetSubCategoryByItemAsync(itemId);
-
-            return Ok(list);
+            return Ok("this is a test");
         }
 
-        [HttpGet, Route("GetItemBySubCategory/{subCategoryId}")]
-        public ActionResult<IAsyncEnumerable<SubCategoryItemDTO>> GetItemBySubCategory(Guid subCategoryId)
-        {
-            IAsyncEnumerable<SubCategoryItemDTO> list = _subCategoryItemService.GetItemBySubCategoryAsync(subCategoryId);
+        //[HttpGet, Route("GetSubCategoryByItem/{itemId}")]
+        //public ActionResult<IAsyncEnumerable<SubCategoryItemDTO>> GetSubCategoryByItem(Guid itemId)
+        //{
+        //    IAsyncEnumerable<SubCategoryItemDTO> list = _subCategoryItemService.GetSubCategoryByItemAsync(itemId);
 
-            return Ok(list);
-        }
+        //    return Ok(list);
+        //}
 
-        [HttpPost, Route("AddItemToSubCategory/{subCategoryId}/{itemId}")]
-        public async Task<ActionResult> AddItemToSubCategory(Guid subCategoryId, Guid itemId)
-        {
-            bool response = await _subCategoryItemService.AddItemToSubCategoryAsync(subCategoryId, itemId);
+        //[HttpGet, Route("GetItemBySubCategory/{subCategoryId}")]
+        //public ActionResult<IAsyncEnumerable<SubCategoryItemDTO>> GetItemBySubCategory(Guid subCategoryId)
+        //{
+        //    IAsyncEnumerable<SubCategoryItemDTO> list = _subCategoryItemService.GetItemBySubCategoryAsync(subCategoryId);
 
-            if (response == false)
-                return StatusCode(303);
+        //    return Ok(list);
+        //}
 
-            return Ok("Add Item To SubCategory - Success");
-        }
+        //[HttpPost, Route("AddItemToSubCategory/{subCategoryId}/{itemId}")]
+        //public async Task<ActionResult> AddItemToSubCategory(Guid subCategoryId, Guid itemId)
+        //{
+        //    bool response = await _subCategoryItemService.AddItemToSubCategoryAsync(subCategoryId, itemId);
+
+        //    if (response == false)
+        //        return StatusCode(303);
+
+        //    return Ok("Add Item To SubCategory - Success");
+        //}
     }
 }

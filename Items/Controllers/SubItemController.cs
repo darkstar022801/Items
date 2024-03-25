@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Items.Controllers
 {
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
     [ApiController]
     public class SubItemController : ControllerBase
@@ -24,36 +24,42 @@ namespace Items.Controllers
             _subItemService = subItemService;
         }
 
-        [HttpGet, Route("GetAll")]
-        public ActionResult<IAsyncEnumerable<SubItemDTO>> GetAll()
+        [HttpGet, Route("test")]
+        public ActionResult<string> Test()
         {
-            IAsyncEnumerable<SubItemDTO> list = _subItemService.GetAllAsync();
-
-            return Ok(list);
+            return Ok("this is a test");
         }
 
-        [HttpGet, Route("GetById/{id}")]
-        public ActionResult<IAsyncEnumerable<SubItemDTO>> GetById(Guid id)
-        {
-            IAsyncEnumerable<SubItemDTO> subItem = _subItemService.GetByIdAsync(id);
+        //[HttpGet, Route("GetAll")]
+        //public ActionResult<IAsyncEnumerable<SubItemDTO>> GetAll()
+        //{
+        //    IAsyncEnumerable<SubItemDTO> list = _subItemService.GetAllAsync();
 
-            return Ok(subItem);
-        }
-    
-        
-        [HttpPost, Route("Create")]
-        public async Task<ActionResult> Create([FromBody] SubItemDTO subItemDTO)
-        {
-            Guid id = await _subItemService.CreateAsync(subItemDTO);
+        //    return Ok(list);
+        //}
 
-            if (id == Guid.Empty)
-                return StatusCode(303);
+        //[HttpGet, Route("GetById/{id}")]
+        //public ActionResult<IAsyncEnumerable<SubItemDTO>> GetById(Guid id)
+        //{
+        //    IAsyncEnumerable<SubItemDTO> subItem = _subItemService.GetByIdAsync(id);
 
-            return Created(
-                new Uri(
-                    string.Concat(Request.Path.ToString().Remove(Request.Path.ToString().Length - 6, 6), $"GetById/{id}"),
-                    UriKind.Relative),
-                id);
-        }
+        //    return Ok(subItem);
+        //}
+
+
+        //[HttpPost, Route("Create")]
+        //public async Task<ActionResult> Create([FromBody] SubItemDTO subItemDTO)
+        //{
+        //    Guid id = await _subItemService.CreateAsync(subItemDTO);
+
+        //    if (id == Guid.Empty)
+        //        return StatusCode(303);
+
+        //    return Created(
+        //        new Uri(
+        //            string.Concat(Request.Path.ToString().Remove(Request.Path.ToString().Length - 6, 6), $"GetById/{id}"),
+        //            UriKind.Relative),
+        //        id);
+        //}
     }
 }

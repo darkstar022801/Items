@@ -1,4 +1,5 @@
 ﻿using System;
+using Items.Data.Entities;
 
 namespace Items.Common.DTOs
 {
@@ -6,16 +7,21 @@ namespace Items.Common.DTOs
     {
         public Guid Id { get; set; }
 
-        public Guid CreatedBy { get; set; }
-
-        public DateTime CreatedDate { get; set; }
-
-        public Guid DeletedBy { get; set; }
-
-        public DateTime DeletedDated { get; set; }
-
         public UserDTO User { get; set; }
 
         public RoleDTO Role { get; set; }
+
+        public static UserRoleDTO From(UserRole userRole)
+        {
+            if (userRole == null)
+                return new UserRoleDTO();
+
+            return new UserRoleDTO
+            {
+                Id = userRole.Id,
+                User = UserDTO.From(userRole.User),
+                Role = RoleDTO.From(userRole.Role)
+            };
+        }
     }
 }
