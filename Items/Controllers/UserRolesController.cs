@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 
 namespace Items.Controllers
 {
+    [AllowAnonymous]
     //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ApiController]
     [Route("api/[controller]")]
@@ -34,7 +35,7 @@ namespace Items.Controllers
         [HttpGet, Route("test")]
         public ActionResult<string> Test()
         {
-            return Ok("this is a test");
+            return Ok("test");
         }
 
         //[HttpGet("GetRolesByUserId/{userId}")]

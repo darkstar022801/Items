@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Items.Controllers
 {
+    [AllowAnonymous]
     //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
     [ApiController]
@@ -27,7 +28,7 @@ namespace Items.Controllers
         [HttpGet, Route("test")]
         public ActionResult<string> Test()
         {
-            return Ok("this is a test");
+            return Ok("test");
         }
 
         //[HttpGet, Route("GetAll")]

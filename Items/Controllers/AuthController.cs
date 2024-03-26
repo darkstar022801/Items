@@ -22,6 +22,7 @@ using System.Threading.Tasks;
 
 namespace Items.Controllers
 {
+    [AllowAnonymous]
     //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ApiController]
     [Route("api/[controller]")]
@@ -39,6 +40,13 @@ namespace Items.Controllers
             _userRolesService = userRolesService;
             _appSettings = appSettings.Value;
         }
+
+        [HttpGet, Route("test")]
+        public ActionResult<string> Test()
+        {
+            return Ok("test");
+        }
+
         //private async Task<TokenDTO> GetToken(User user)
         //{
         //    var tokenHandler = new JwtSecurityTokenHandler();
