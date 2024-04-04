@@ -44,7 +44,7 @@ namespace Items.Controllers
         [HttpGet, Route("test")]
         public ActionResult<string> Test()
         {
-            return Ok("test");
+            return Ok("AuthController");
         }
 
         //private async Task<TokenDTO> GetToken(User user)

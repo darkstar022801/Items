@@ -28,7 +28,7 @@ namespace Items.Controllers
         [HttpGet, Route("test")]
         public ActionResult<string> Test()
         {
-            return Ok("test");
+            return Ok("SubCategoryItemController");
         }
 
         //[HttpGet, Route("GetSubCategoryByItem/{itemId}")]
