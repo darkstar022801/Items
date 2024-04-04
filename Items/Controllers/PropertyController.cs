@@ -27,7 +27,7 @@ namespace Items.Controllers
         [HttpGet, Route("test")]
         public ActionResult<string> Test()
         {
-            return Ok("test");
+            return Ok("PropertyController");
         }
 
         //[HttpGet, Route("GetAll")]
